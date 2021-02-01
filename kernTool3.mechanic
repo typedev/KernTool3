@@ -1,0 +1,8 @@
+extensionName: KernTool3
+repository: https://github.com/typedev/KernTool3
+extensionPath: build/KernTool3.roboFontExt
+description: a set of extensions for working with kerning in RoboFont.
+developer: Alexander Lubovenko (typedev)
+developerURL: https://github.com/typedev
+tags: [ kerning ]
+icon: https://github.com/typedev/KernTool3/icon/kerntool3icon.png
