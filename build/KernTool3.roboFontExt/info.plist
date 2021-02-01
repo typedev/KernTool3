@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>addToMenu</key>
+	<array>
+		<dict>
+			<key>nestInSubmenus</key>
+			<true/>
+			<key>path</key>
+			<string>KernFinger.py</string>
+			<key>preferredName</key>
+			<string>KernFinger</string>
+			<key>shortKey</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>nestInSubmenus</key>
+			<true/>
+			<key>path</key>
+			<string>KernGroups.py</string>
+			<key>preferredName</key>
+			<string>KernGroups</string>
+			<key>shortKey</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>nestInSubmenus</key>
+			<true/>
+			<key>path</key>
+			<string>KernPreferences.py</string>
+			<key>preferredName</key>
+			<string>KernPreferences</string>
+			<key>shortKey</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>nestInSubmenus</key>
+			<true/>
+			<key>path</key>
+			<string>KernTool3.py</string>
+			<key>preferredName</key>
+			<string>KernTool</string>
+			<key>shortKey</key>
+			<string></string>
+		</dict>
+	</array>
+	<key>developer</key>
+	<string>Alexander Lubovenko</string>
+	<key>developerURL</key>
+	<string>https://github.com/typedev</string>
+	<key>html</key>
+	<false/>
+	<key>launchAtStartUp</key>
+	<integer>0</integer>
+	<key>mainScript</key>
+	<string></string>
+	<key>name</key>
+	<string>KernTool3</string>
+	<key>requiresVersionMajor</key>
+	<string>3</string>
+	<key>requiresVersionMinor</key>
+	<string>4</string>
+	<key>timeStamp</key>
+	<real>1612177264.552213</real>
+	<key>version</key>
+	<string>3.0</string>
+</dict>
+</plist>
