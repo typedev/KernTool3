@@ -1,4 +1,4 @@
-# kernTool3
+# KernTool3
  a set of extensions for working with kerning in RoboFont3
  
 ![](img/kerntool1.png)
