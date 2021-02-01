@@ -1,7 +1,7 @@
 # kernTool3
  a set of extensions for working with kerning in RoboFont3
  
-![](https://github.com/typedev/KernTool3/blob/master/img/kerntool1.png)
+![](img/kerntool1.png)
 ![](https://github.com/typedev/KernTool3/blob/master/img/kerntool2.png)
 ![](https://github.com/typedev/KernTool3/blob/master/img/kerntool3.png)
 ![](https://github.com/typedev/KernTool3/blob/master/img/kerntool4.png)
