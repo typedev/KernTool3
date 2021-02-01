@@ -6,4 +6,4 @@ developer: Alexander Lubovenko
 developerURL: https://github.com/typedev
 tags: [ kerning ]
 icon: https://raw.githubusercontent.com/typedev/KernTool3/main/kerntool3icon.png
-zipPath: https://github.com/typedev/KernTool3/blob/main/zip/KernTool3.roboFontExt.zip
+zipPath: https://raw.githubusercontent.com/typedev/KernTool3/main/zip/KernTool3.roboFontExt.zip
