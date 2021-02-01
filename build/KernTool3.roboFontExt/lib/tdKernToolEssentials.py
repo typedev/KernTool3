@@ -11,7 +11,7 @@ from fontParts.world import *
 import importlib
 # import tdLangSet
 # importlib.reload(tdLangSet)
-from tdLangSet import TDLangSet
+# from tdLangSet import TDLangSet
 
 
 PREFKEY_base = 'com.typedev.KernTool3'
