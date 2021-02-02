@@ -1,4 +1,4 @@
-4# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """
 keyCodes: 123 left, 124 right, 126 up, 125 down,
