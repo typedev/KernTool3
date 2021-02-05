@@ -1,8 +1,8 @@
 # KernTool3
  a set of extensions for working with kerning in RoboFont3
  
-<!-- (Extensions seem to work great in macOS Mojave and have drawing problems in Catalina..
-I’m trying to fix it)-->
+*Extensions seem to work great in macOS Mojave and have drawing problems in Catalina..
+I’m trying to fix it*
 
 ![](img/kerntool1@2x.jpg)
 ![](img/kerntool2@2x.jpg)
