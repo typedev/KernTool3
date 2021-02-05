@@ -86,6 +86,10 @@ class TDControlPanel(VanillaBaseObject):
 		self.controlCanvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
 		self.controlCanvas.update()
 
+	def updatePanel(self):
+		self.controlCanvas.update()
+
+
 	def addControlItem (self, title=None, hotkey=None,
 	                    command=None, callback=None,
 	                    visible=True, callbackValue=None):

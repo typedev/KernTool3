@@ -7,12 +7,13 @@ from mojo.roboFont import *
 from mojo.extensions import *
 from mojo.pens import DecomposePointPen
 from fontParts.world import *
-
+import platform
 import importlib
 # import tdLangSet
 # importlib.reload(tdLangSet)
 # from tdLangSet import TDLangSet
 
+MACOS_VERSION = platform.mac_ver()[0].split('.')[1]
 
 PREFKEY_base = 'com.typedev.KernTool3'
 PREFKEY_GroupName = '%s.KernGroupNameID' % PREFKEY_base
@@ -230,7 +231,7 @@ def checkOverlapingGlyphs (font, leftglyph, rightglyph, kernvalue):
 
 
 def autoCalcPairValue (font, hashKernDic, pair, mode = 'default', simplePair = False): # mode = 'fixtouches'
-	print ('Calling AutoCalc..') # for', pair
+	# print ('Calling AutoCalc..') # for', pair
 	if not simplePair:
 		leftglyph = font[cutUniqName(pair['L_nameUUID'])]
 		rightglyph = font[cutUniqName(pair['R_nameUUID'])]

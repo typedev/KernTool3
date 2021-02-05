@@ -294,6 +294,9 @@ class TDKernListControl(VanillaBaseObject):
 			self.canvas.update()
 			self._selectionCallback(result)
 
+	def updatePanel(self):
+		self.canvas.update()
+
 
 	def recalculateFrame (self, canvaswidth=None):
 		# scalefactor = self._scaleUI
@@ -585,7 +588,7 @@ class TDKernListView(VanillaBaseObject):
 		self.showselection = False
 		self._setupView(self.nsViewClass, (xw, yw, tx, ty))  # (0, 0, -0, 106)
 
-
+		self.macos = MACOS_VERSION
 
 		self.canvas = Canvas((0, 0, -0, -0),
 		                     delegate = self,  # canvasSize = (100, 101),
@@ -597,6 +600,10 @@ class TDKernListView(VanillaBaseObject):
 		                     # acceptsMouseMoved = True
 		                     )
 		self.canvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+
+	def updatePanel(self):
+		self.canvas.update()
+
 
 	def getCorrectPreviwWidth(self):
 		# g = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
@@ -986,6 +993,56 @@ class TDKernListView(VanillaBaseObject):
 		self.canvas._view.setFrame_(NSMakeRect(0, 0, visibleWidth, yoff))
 		self.maxX = visibleWidth + 60
 
+	def scrollwheel (self, event):
+		# print (event)
+		#
+		scaleUI = self._scalefactorUI
+		# deltaX = event.deltaX()
+		deltaY = event.deltaY()
+		if deltaY == 0 : return
+
+		scaleScroll = 5#abs(deltaY)/10
+		# if abs(deltaY) < 3:
+		# 	scaleScroll = .2
+		# if abs(deltaY) > 3 and abs(deltaY) < 8:
+		# 	scaleScroll = .6
+		# if abs(deltaY) > 8 and abs(deltaY) < 15:
+		# 	scaleScroll = 1.1
+		# if abs(deltaY) > 30:
+		# 	scaleScroll = 10
+		visibleWidth = self.canvas.scrollView.getNSScrollView().documentVisibleRect().size.width
+		visibleHeight = self.canvas.scrollView.getNSScrollView().documentVisibleRect().size.height
+		posXscroller = self.canvas.scrollView.getNSScrollView().documentVisibleRect().origin.x
+		posYscroller = self.canvas.scrollView.getNSScrollView().documentVisibleRect().origin.y
+
+		xW, yW, wW, hW = self.getPosSize()
+		# xpoint = posXscroller - (deltaX * scaleScroll)
+		ypoint = posYscroller + (deltaY * scaleScroll)
+		# if xpoint > self.maxXX - visibleWidth:  # - visibleWidth:
+		# 	xpoint = self.maxXX - visibleWidth  # - self.visibleWidth #- visibleWidth
+		# if xpoint < xW:
+		# 	xpoint = 0
+
+		if ypoint < 0:
+			ypoint = 0
+		# return
+		maxY = 0
+		if self._viewArray:
+			maxY = (self._lineCount -1) * self._lineSize # self._viewArray[-1]['y0']
+
+		if posYscroller + visibleHeight - self._lineSize * scaleUI > maxY * scaleUI:
+			ypoint = maxY * scaleUI - visibleHeight + self._lineSize * scaleUI
+		elif posYscroller + visibleHeight - self._lineSize * scaleUI == maxY * scaleUI and deltaY > 0:
+			ypoint = maxY * scaleUI - visibleHeight + self._lineSize * scaleUI
+
+		point = NSPoint(0, ypoint)
+		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
+		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
+			self.canvas.scrollView.getNSScrollView().contentView())
+		# time.sleep(0.09)
+		if self.macos == '15':
+			self.canvas.update()
+		# self.canvas.update()
 
 	def draw (self):
 		def drawException (x, y):
@@ -1546,7 +1603,7 @@ class TDKernFinger(BaseWindowController):
 		removeObserver(self, "currentGlyphChanged")
 		removeObserver(self, EVENT_REFRESH_ALL_OBSERVERS)
 		# super(MyW, self).windowCloseCallback(sender)
-		print('KernFinger: DONE.')
+		# print('KernFinger: DONE.')
 
 	def widwowResize (self, sender):
 		x,y, w, h = sender.getPosSize()
@@ -1562,6 +1619,14 @@ class TDKernFinger(BaseWindowController):
 		self.w.g.preEdit.setPosSize((5,Yctrl, wedit, 17))
 		self.w.g.lbl.setPosSize((xlbl, Yctrl+4, wlbl, 17))
 		self.w.g.postEdit.setPosSize((x2edit, Yctrl, wedit, 17))
+		self.w.menuMain.updatePanel()
+		self.w.menuStatusBar.updatePanel()
+		self.w.g.menuPairsCount.updatePanel()
+		self.w.menuFilters.updatePanel()
+		self.w.kernlist.updatePanel()
+		self.w.kernlistControl.updatePanel()
+		self.w.g.menuOperation.updatePanel()
+
 
 	def refreshKernView(self, info):
 		if info['fontID'] == self.fontID and info['observerID'] != self.observerID:

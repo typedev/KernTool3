@@ -40,7 +40,7 @@
 			<key>path</key>
 			<string>KernTool3.py</string>
 			<key>preferredName</key>
-			<string>KernTool</string>
+			<string>KernTool3</string>
 			<key>shortKey</key>
 			<string></string>
 		</dict>
@@ -62,8 +62,8 @@
 	<key>requiresVersionMinor</key>
 	<string>4</string>
 	<key>timeStamp</key>
-	<real>1612203418.815464</real>
+	<real>1612539895.0071769</real>
 	<key>version</key>
-	<string>3.0.1</string>
+	<string>3.0.2</string>
 </dict>
 </plist>

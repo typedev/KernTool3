@@ -113,6 +113,8 @@ class TDKernObserver(VanillaBaseObject):
 
 		self.observerID = getUniqName(6)
 
+		self.macos = MACOS_VERSION
+
 		self.darkmode = KERNTOOL_UI_DARKMODE
 		self.darkmodeWarm = KERNTOOL_UI_DARKMODE_WARMBACKGROUND
 		# self.langSet = TDLangSet()
@@ -461,13 +463,17 @@ class TDKernObserver(VanillaBaseObject):
 			self.canvas.scrollView.getNSScrollView().contentView())
 		return firstItemInLine
 
-	def scrollWheel (self, event):
+	def scrollwheel (self, event):
+		# print (event)
+		#
 		scaleUI = self._scalefactorUI
 		deltaX = event.deltaX()
 		deltaY = event.deltaY()
 		if deltaY == 0 and deltaX == 0: return
-
-		scaleScroll = 2#abs(deltaY)/10
+		if self.macos == '15':
+			scaleScroll = 7#abs(deltaY)/10
+		else:
+			scaleScroll = 2
 		# if abs(deltaY) < 3:
 		# 	scaleScroll = .2
 		# if abs(deltaY) > 3 and abs(deltaY) < 8:
@@ -505,7 +511,9 @@ class TDKernObserver(VanillaBaseObject):
 		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.canvas.scrollView.getNSScrollView().contentView())
-		# time.sleep(0.09)
+		if self.macos == '15':
+			self.canvas.update()
+
 
 	def scrollToPair (self, pairUUID):
 		if not self._viewArray: return
@@ -1302,7 +1310,7 @@ class TDKernObserver(VanillaBaseObject):
 
 			self.recalculateFrame(visibleWidth)
 
-		if mode == 'refresh' and not self.highLevelLoaded:
+		if mode == 'refresh' and not self.highLevelLoaded and not self.macos=='15':
 			if self._viewArray:
 				self.maxX = 0
 				for idx, item in enumerate(self._viewArray):
@@ -1360,7 +1368,7 @@ class TDKernObserver(VanillaBaseObject):
 		self.maxXX = visibleWidth + 60
 
 	def draw (self):
-		self.recalculateFrame(self.visibleWidth)
+		# self.recalculateFrame(self.visibleWidth)
 		self._viewFontName = 'Menlo'#'.SFCompactText-Regular'
 		self._viewFontSize = 80
 		font(self._viewFontName, fontSize = self._viewFontSize)
@@ -1453,7 +1461,7 @@ class TDKernObserver(VanillaBaseObject):
 					and ((X_min_window * scalefactor < Xpos * scalefactor)
 					     and (X_max_window > Xpos * scalefactor)):
 
-				if self.highLevelLoaded: # Refresh kerning values and calc lines when drawing loop #experimental
+				if self.highLevelLoaded or self.macos=='15': # Refresh kerning values and calc lines when drawing loop #experimental
 					if idx < len(self._viewArray)-1 and idx > 0:
 						if self._viewArray[idx]['y0'] == self._viewArray[idx+1]['y0']:
 							litem = self._viewArray[idx]['name']
@@ -1972,7 +1980,7 @@ class KernObserver(object):
 
 		addObserver(self.w.kernObserver, 'refreshKernView', EVENT_KERN_VALUE_CHANGED)
 		# addObserver(self.w.kernObserver, 'refreshKernViewFromLinked', EVENT_KERN_VALUE_LINKED)
-		# self.w.bind('became main', self.windowBecameMain)
+		self.w.bind('resize', self.windowResize)
 		# addObserver(self.w.kernObserver, 'stepToLine', EVENT_STEP_TO_LINE)
 		# addObserver(self.w.kernObserver, 'sendObserverID', EVENT_OBSERVERID)
 		addObserver(self.w.kernObserver, 'setGlyphs', EVENT_OBSERVER_SETTEXT)
@@ -1990,6 +1998,13 @@ class KernObserver(object):
 	def callbackLevers (self, info):
 		pass
 
+	def windowResize(self, sender):
+		self.w.gcontrol.ctrl1.updatePanel()
+		self.w.ctrl2.updatePanel()
+		self.w.ctrl3.updatePanel()
+		self.w.groupsView.updatePanel()
+
+
 	def windowCloseCallback (self, sender):
 		removeObserver(self.w.kernObserver, EVENT_KERN_VALUE_CHANGED)
 		# removeObserver(self.w.kernObserver, EVENT_KERN_VALUE_LINKED)
@@ -1997,7 +2012,7 @@ class KernObserver(object):
 		# removeObserver(self.w.kernObserver, EVENT_OBSERVERID)
 		removeObserver(self.w.kernObserver, EVENT_OBSERVER_SETTEXT)
 		removeObserver(self.w.kernObserver, EVENT_REFRESH_ALL_OBSERVERS)
-		print ('KernTool: DONE')
+		# print ('KernTool: DONE')
 
 	def setCanvasWidth (self, sender):
 		self.visibleWidth = sender
@@ -2049,7 +2064,7 @@ class KernObserver(object):
 
 	def fontMenuCall (self):
 		from mojo.UI import SelectFont
-		font = SelectFont(title = 'KernFinger')
+		font = SelectFont(title = 'KernTool')
 		self.refresh(font)
 		# MenuDialogWindow(parentWindow = self.w, callback = self.refresh)
 

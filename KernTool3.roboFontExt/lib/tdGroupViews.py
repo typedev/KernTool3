@@ -578,6 +578,9 @@ class TDGroupLine(VanillaBaseObject):
 		self.infoLine.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.infoLine.scrollView.getNSScrollView().contentView())
 
+	def updatePanel(self):
+		self.infoLine.update()
+
 	def draw (self):
 		self._viewFontName = 'Menlo'
 		stroke(0, 0, 0, 0)
@@ -864,6 +867,11 @@ class TDGroupViewLinesAndStackLR(VanillaBaseObject):
 		self.w.groupStackR.setFont(font)
 		self.w.groupLineL.setFont(font, hashKernDic)
 		self.w.groupLineR.setFont(font, hashKernDic)
+
+	def updatePanel(self):
+		self.w.groupLineL.updatePanel()
+		self.w.groupLineR.updatePanel()
+
 
 
 	def getKeyGlyph (self, groupname, direction):
