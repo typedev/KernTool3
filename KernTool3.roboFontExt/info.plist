@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>nestInSubmenus</key>
-			<true/>
+			<false/>
 			<key>path</key>
 			<string>KernFinger.py</string>
 			<key>preferredName</key>
@@ -16,7 +16,7 @@
 		</dict>
 		<dict>
 			<key>nestInSubmenus</key>
-			<true/>
+			<false/>
 			<key>path</key>
 			<string>KernGroups.py</string>
 			<key>preferredName</key>
@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>nestInSubmenus</key>
-			<true/>
+			<false/>
 			<key>path</key>
 			<string>KernPreferences.py</string>
 			<key>preferredName</key>
@@ -36,7 +36,7 @@
 		</dict>
 		<dict>
 			<key>nestInSubmenus</key>
-			<true/>
+			<false/>
 			<key>path</key>
 			<string>KernTool3.py</string>
 			<key>preferredName</key>
@@ -62,8 +62,8 @@
 	<key>requiresVersionMinor</key>
 	<string>4</string>
 	<key>timeStamp</key>
-	<real>1612539895.0071769</real>
+	<real>1626171566.0178702</real>
 	<key>version</key>
-	<string>3.0.2</string>
+	<string>3.0.3</string>
 </dict>
 </plist>

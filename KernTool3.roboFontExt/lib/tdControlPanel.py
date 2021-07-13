@@ -36,8 +36,8 @@ callback
 '''
 latletters = 'abcdefghijklmnopqrstuvwxyz[ ]:'
 
-LEVEL_FULL = chr(int('2981', 16)) #2589  25A0 25C9
-LEVEL_EMPTY = chr(int('26AC', 16)) # 2591  25A1 25CB
+LEVEL_FULL = chr(int('25CF', 16)) #2589  25A0 25C9
+LEVEL_EMPTY = chr(int('25E6', 16)) # 2591  25A1 25CB
 
 
 class TDControlPanel(VanillaBaseObject):
@@ -50,9 +50,9 @@ class TDControlPanel(VanillaBaseObject):
 		self.parentWindow = parentWindow
 		self._letterStep = 7
 		self._letterStepLine = 15
-		self._viewFontName = '.SFCompactText-Regular'#'.SFCompactText-Regular' #'.AppleSDGothicNeoI-Regular' #'Menlo'
-		self._viewFontNameDMselected = '.SFCompactText-Semibold'
-		self._viewFontNameSymbols = '.SFCompactText-Regular'#'AppleSymbols'#'.SFCompactText-Regular' #'.LucidaGrandeUI' #'.Keyboard'
+		self._viewFontName = 'Menlo'#'.SFCompactText-Regular' #'.AppleSDGothicNeoI-Regular' #'Menlo'
+		self._viewFontNameDMselected = 'Menlo-Bold'
+		self._viewFontNameSymbols = '.LucidaGrandeUI'#'AppleSymbols'#'.SFCompactText-Regular' #'.LucidaGrandeUI' #'.Keyboard'
 		self._viewFontSize = 12
 		self._scaleUI = 1
 		self.darkmode = KERNTOOL_UI_DARKMODE
@@ -84,6 +84,7 @@ class TDControlPanel(VanillaBaseObject):
 		# self.parentWindow.acceptsMouseMoved()
 		# self.mouseMoved = self.controlCanvas.getNSView().acceptsMouseMoved()
 		self.controlCanvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+
 		self.controlCanvas.update()
 
 	def updatePanel(self):

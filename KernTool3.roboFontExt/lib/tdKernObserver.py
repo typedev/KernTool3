@@ -45,6 +45,7 @@ import tdExceptionView
 importlib.reload(tdExceptionView)
 from tdExceptionView import *
 
+import platform
 # import tdLangSet
 # importlib.reload(tdLangSet)
 # from tdLangSet import TDLangSet
@@ -511,7 +512,7 @@ class TDKernObserver(VanillaBaseObject):
 		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.canvas.scrollView.getNSScrollView().contentView())
-		if self.macos == '15':
+		if self.macos == '15' or self.macos == '16':
 			self.canvas.update()
 
 
@@ -950,7 +951,10 @@ class TDKernObserver(VanillaBaseObject):
 
 		elif (not lGG) and (not rGG): pass
 		else:
-			kernValue = self._font.kerning[(cutUniqName(gL), cutUniqName(gR))]
+			if (cutUniqName(gL), cutUniqName(gR)) in self._font.kerning:
+				kernValue = self._font.kerning[(cutUniqName(gL), cutUniqName(gR))]
+			else:
+				kernValue = None
 			if kernValue != None:
 				# print 'Making exception' , cutUniqName(l), cutUniqName(r) , kernValue
 				self.setValue2Pair(pair = (cutUniqName(l), cutUniqName(r)), value = kernValue)
@@ -1307,7 +1311,6 @@ class TDKernObserver(VanillaBaseObject):
 				Ypos += lineStep
 				Xpos = shiftX
 				self.lineCount += 1
-
 			self.recalculateFrame(visibleWidth)
 
 		if mode == 'refresh' and not self.highLevelLoaded and not self.macos=='15':
@@ -1456,10 +1459,7 @@ class TDKernObserver(VanillaBaseObject):
 			Ypos = item['y0']
 
 			# DRAW _only_ if it visible in window frame
-			if (Y_min_window - self._lineSize * scalefactor < ((maxY + (-1 * Ypos)) * scalefactor)
-			    and Y_max_window > ((maxY + (-1 * Ypos)) * scalefactor)) \
-					and ((X_min_window * scalefactor < Xpos * scalefactor)
-					     and (X_max_window > Xpos * scalefactor)):
+			if (Y_min_window - (self._lineSize) * scalefactor < ((maxY + (-1 * Ypos)) * scalefactor) and Y_max_window + (self._lineSize)> ((maxY + (-1 * Ypos)) * scalefactor)) and ((X_min_window * scalefactor < Xpos * scalefactor) and (X_max_window > Xpos * scalefactor)):
 
 				if self.highLevelLoaded or self.macos=='15': # Refresh kerning values and calc lines when drawing loop #experimental
 					if idx < len(self._viewArray)-1 and idx > 0:

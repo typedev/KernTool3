@@ -91,7 +91,7 @@ class TDGroupViewCell(VanillaBaseObject):
 		)
 
 		self.groupView.setCellRepresentationArguments(drawHeader = True)  # , drawMetrics = True
-		self.groupView.setCellSize((47, 50))
+		self.groupView.setCellSize((46, 49))
 		# self.groupView.getNSScrollView().setHasVerticalScroller_(False)
 		# self.groupView.getNSScrollView().setHasHorizontalScroller_(False)
 		#

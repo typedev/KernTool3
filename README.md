@@ -3,6 +3,9 @@
  
 ```
 version history:
+3.0.3   1. fixes for MacOs Big Sur (works but a little slow)
+        2. fixed a bug when creating an exception on a non-existent pair
+        3. UI font is changed to Menlo
 3.0.2 fixes for MacOs Catalina
 3.0.1 initial release
 ```

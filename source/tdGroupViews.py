@@ -275,7 +275,7 @@ class TDGroupViewStacked(VanillaBaseObject):
 				rect(0, 0, visibleWidth, 15)
 				txt = getDisplayNameGroup(self.groupname)
 				txtshift = 2
-				font('.SFCompactText-Regular', fontSize = 10)
+				font('Menlo', fontSize = 10)
 				if txt.startswith('@.'):
 					txt = txt.replace('@.','')
 					txtshift = 10
@@ -284,7 +284,7 @@ class TDGroupViewStacked(VanillaBaseObject):
 				fill(1)
 				nx,ny = textSize(txt)
 				if nx > visibleWidth-15:
-					font('.SFCompactText-Regular', fontSize = 8)
+					font('Menlo', fontSize = 8)
 					text(txt, (3 + txtshift, 3))
 				else:
 					text(txt, (3 + txtshift, 1))

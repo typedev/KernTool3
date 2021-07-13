@@ -15,6 +15,7 @@ import codecs, sys, os
 import operator
 
 import importlib
+import platform
 
 import tdCanvasKeysDecoder
 importlib.reload(tdCanvasKeysDecoder)
@@ -594,9 +595,9 @@ class TDKernListView(VanillaBaseObject):
 		                     delegate = self,  # canvasSize = (100, 101),
 		                     hasHorizontalScroller = False,
 		                     hasVerticalScroller = True,
-		                     autohidesScrollers = False,
+		                     autohidesScrollers = True,
 		                     # backgroundColor = NSColor.whiteColor(),
-		                     drawsBackground = True,
+		                     drawsBackground = False,
 		                     # acceptsMouseMoved = True
 		                     )
 		self.canvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
@@ -1042,6 +1043,8 @@ class TDKernListView(VanillaBaseObject):
 		# time.sleep(0.09)
 		if self.macos == '15':
 			self.canvas.update()
+		if self.macos == '16':
+			self.canvas.update()
 		# self.canvas.update()
 
 	def draw (self):
@@ -1058,7 +1061,7 @@ class TDKernListView(VanillaBaseObject):
 			drawPath()
 
 		self.recalculateFrame()
-		self._viewFontName = '.SFCompactText-Regular'
+		self._viewFontName = 'Menlo'
 		self._viewFontSize = 12
 		font(self._viewFontName, fontSize = self._viewFontSize)
 
@@ -1070,7 +1073,7 @@ class TDKernListView(VanillaBaseObject):
 
 		Y_min_window = Y_local_pos
 		Y_max_window = Y_local_pos + visibleHeight
-
+		# print (Y_min_window, Y_max_window, visibleHeight)
 		X_min_window = X_local_pos
 		X_max_window = X_local_pos + visibleWidth
 
@@ -1104,7 +1107,7 @@ class TDKernListView(VanillaBaseObject):
 			# (_d0, _d1,_d2,_d3,_d4,_d5)
 			# DRAW if it visible in window frame
 			if (Y_min_window - self._lineSize < ((maxY + (-1 * Ypos)))
-			    and Y_max_window > ((maxY + (-1 * Ypos)))) :
+			    and Y_max_window + self._lineSize > ((maxY + (-1 * Ypos)))) :
 
 				Ycontrol = -1 * Ypos
 
