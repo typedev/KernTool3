@@ -8,7 +8,7 @@ from fontParts.world import CurrentFont, RGlyph
 from defconAppKit.windows.baseWindow import BaseWindowController
 # from mojo.canvas import Canvas
 from mojo.drawingTools import *
-from AppKit import *
+import AppKit
 
 import importlib
 from mojo.canvas import *
@@ -41,7 +41,7 @@ LEVEL_EMPTY = chr(int('25E6', 16)) # 2591  25A1 25CB
 
 
 class TDControlPanel(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 
 	def __init__ (self, posSize, parentWindow, selectionCallback=None, keyPressedCallback=None, active = True):
 		xw, yw, tx, ty = posSize
@@ -83,7 +83,7 @@ class TDControlPanel(VanillaBaseObject):
 		                            )
 		# self.parentWindow.acceptsMouseMoved()
 		# self.mouseMoved = self.controlCanvas.getNSView().acceptsMouseMoved()
-		self.controlCanvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+		self.controlCanvas.scrollView.getNSScrollView().setBorderType_(AppKit.NSNoBorder)
 
 		self.controlCanvas.update()
 
@@ -497,7 +497,7 @@ class TDControlPanel(VanillaBaseObject):
 		self.visibleWidth = visibleWidth
 		visibleHeight = self.controlCanvas.scrollView.getNSScrollView().documentVisibleRect().size.height
 
-		self.controlCanvas._view.setFrame_(NSMakeRect(0, 0, visibleWidth + 20, visibleHeight))
+		self.controlCanvas._view.setFrame_(AppKit.NSMakeRect(0, 0, visibleWidth + 20, visibleHeight))
 		self.maxX = visibleWidth -20
 
 	def draw (self):

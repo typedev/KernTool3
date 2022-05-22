@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from vanilla import *
-from AppKit import *
+# from AppKit import *
+import AppKit
 from fontTools.pens.cocoaPen import CocoaPen
 from mojo.canvas import Canvas
 from mojo.drawingTools import *
@@ -37,7 +38,7 @@ importlib.reload(tdGlyphparser)
 
 
 class TDMenuAdvanced(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 
 	def __init__ (self, posSize, selectionCallback=None, window=None):
 		xw, yw, tx, ty = posSize
@@ -69,11 +70,11 @@ class TDMenuAdvanced(VanillaBaseObject):
 		                     hasHorizontalScroller = False,
 		                     hasVerticalScroller = True,
 		                     autohidesScrollers = False,
-		                     backgroundColor = NSColor.whiteColor(),
+		                     backgroundColor = AppKit.NSColor.whiteColor(),
 		                     drawsBackground = True,
 		                     # acceptsMouseMoved = True
 		                     )
-		self.canvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+		self.canvas.scrollView.getNSScrollView().setBorderType_(AppKit.NSNoBorder)
 
 		fonts = AllFonts()
 		for font in fonts:
@@ -132,7 +133,7 @@ class TDMenuAdvanced(VanillaBaseObject):
 		else:
 			return firstItemInLine
 
-		point = NSPoint(xpos, ypos)
+		point = AppKit.NSPoint(xpos, ypos)
 		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.canvas.scrollView.getNSScrollView().contentView())
@@ -421,7 +422,7 @@ class TDMenuAdvanced(VanillaBaseObject):
 		elif posYscroller + visibleHeight - self._lineSize * scaleUI == maxY * scaleUI and deltaY>0:
 			ypoint = maxY * scaleUI - visibleHeight + self._lineSize * scaleUI
 
-		point = NSPoint(xpoint, ypoint)
+		point = AppKit.NSPoint(xpoint, ypoint)
 		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.canvas.scrollView.getNSScrollView().contentView())
@@ -485,7 +486,7 @@ class TDMenuAdvanced(VanillaBaseObject):
 		yoff = (self.lineCount * self._lineSize) * scalefactor  # + self.Ygap*2
 		if yoff < visibleHeight:
 			yoff = visibleHeight  #+ 500
-		self.canvas._view.setFrame_(NSMakeRect(0, 0, visibleWidth + 60, yoff))
+		self.canvas._view.setFrame_(AppKit.NSMakeRect(0, 0, visibleWidth + 60, yoff))
 		self.maxXX = visibleWidth + 60
 		# scalefactor = self._scalefactorUI
 		#

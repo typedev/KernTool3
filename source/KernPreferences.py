@@ -4,7 +4,7 @@ import sys
 from vanilla import *
 from mojo.UI import *
 from defconAppKit.windows.baseWindow import BaseWindowController
-from AppKit import *
+# from AppKit import *
 from mojo.extensions import *
 import importlib
 import tdKernToolEssentials

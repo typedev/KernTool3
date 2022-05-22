@@ -11,7 +11,8 @@ from mojo.canvas import Canvas
 from mojo.drawingTools import *
 from mojo.glyphPreview import GlyphPreview
 from defconAppKit.controls.glyphCollectionView import GlyphCollectionView
-from AppKit import *
+# from AppKit import *
+import AppKit
 # from mojo.drawingTools import drawingTools
 from fontTools.pens.cocoaPen import CocoaPen
 
@@ -34,7 +35,7 @@ from tdKernToolEssentials import *
 
 
 class TDGroupViewStacked(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 
 	def __init__ (self, posSize, selectionCallback=None, doubleClickCallback = None,
 	              sizeStyle='regular', liveupdate=False):
@@ -92,7 +93,7 @@ class TDGroupViewStacked(VanillaBaseObject):
 		                       # backgroundColor = NSColor.whiteColor(),
 		                       # acceptMouseMoved = True
 		                       )
-		self.infoLine.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+		self.infoLine.scrollView.getNSScrollView().setBorderType_(AppKit.NSNoBorder)
 		self.infoLine.update()
 
 	def setFont (self, font):
@@ -312,7 +313,7 @@ class TDGroupViewStacked(VanillaBaseObject):
 
 
 class TDGroupLine(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 
 	def __init__ (self, posSize, separatePairs=True,
 	              selectionCallback=None,
@@ -390,7 +391,7 @@ class TDGroupLine(VanillaBaseObject):
 		                       autohidesScrollers = True,
 		                       # backgroundColor = NSColor.whiteColor()
 		                       )
-		self.infoLine.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+		self.infoLine.scrollView.getNSScrollView().setBorderType_(AppKit.NSNoBorder)
 		# self.infoLine.update()
 
 	def setFont (self, font, hashKernDic):
@@ -550,7 +551,7 @@ class TDGroupLine(VanillaBaseObject):
 					self.pairsViews.append((self._viewArray[idx-1]['nameUUID'],nameUUID))
 
 	def resetPosition (self):
-		point = NSPoint(0, 0)
+		point = AppKit.NSPoint(0, 0)
 		self.infoLine.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.infoLine.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.infoLine.scrollView.getNSScrollView().contentView())
@@ -573,7 +574,7 @@ class TDGroupLine(VanillaBaseObject):
 			xpoint = 0
 		if xpoint > self.maxX - visibleWidth:
 			xpoint = self.maxX - visibleWidth #+ 200
-		point = NSPoint(xpoint, posYscroller + (deltaY * scaleScroll))
+		point = AppKit.NSPoint(xpoint, posYscroller + (deltaY * scaleScroll))
 		self.infoLine.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.infoLine.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.infoLine.scrollView.getNSScrollView().contentView())
@@ -830,11 +831,11 @@ class TDGroupLine(VanillaBaseObject):
 		# 	maxX += (widthSeparator*(paircount-2))* scalefactor
 
 		if maxX < visibleWidth: maxX = visibleWidth
-		self.infoLine._view.setFrame_(NSMakeRect(0, 0, maxX + 40, visibleHeight))
+		self.infoLine._view.setFrame_(AppKit.NSMakeRect(0, 0, maxX + 40, visibleHeight))
 		self.maxX = maxX
 
 class TDGroupViewLinesAndStackLR(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 
 	def __init__ (self, parent, posSize, selectionCallback=None, selectionPairCallback = None,
 	              showValues=False, stackedGroupDBLclickCallback = None):

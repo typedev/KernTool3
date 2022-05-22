@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from vanilla import *
-from AppKit import *
+# from AppKit import *
+import AppKit
 from fontTools.pens.cocoaPen import CocoaPen
 from mojo.canvas import Canvas
 from mojo import drawingTools# .drawingTools import *
@@ -60,8 +61,6 @@ class TDKernDB(object):
 		self._mask2id = ID_KERNING_GROUP.replace('.kern', '') + ID_GROUP_DIRECTION_POSITION_RIGHT
 
 		self.buildDB()
-
-
 
 	def buildDB(self):
 		self.db = {}
@@ -122,11 +121,9 @@ class TDKernDB(object):
 				# # if note == PAIR_INFO_ORPHAN:
 				# print ('but lets check the parents',_l, _r, note)
 				# self.refreshPairInDB((_l, _r))
-
 			else:
 				# print('but it not in kernig - pair was deleted')
 				self.db.pop(pair)
-
 				note, _l, _r = getKernPairInfo_v2(self.font, self.hashKernDic, pair)
 				""" теперь, если пара - исключение, надо найти инфу о родительских группах и обновить инфу о них"""
 				# if note == PAIR_INFO_ORPHAN or note == PAIR_INFO_EXCEPTION or note == PAIR_INFO_EXCEPTION_DELETED:
@@ -159,7 +156,7 @@ class TDKernDB(object):
 
 
 class TDKernListControl(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 
 	def __init__ (self, posSize, selectionCallback=None, window=None):
 		xw, yw, tx, ty = posSize
@@ -191,11 +188,11 @@ class TDKernListControl(VanillaBaseObject):
 		                     hasHorizontalScroller = False,
 		                     hasVerticalScroller = True,
 		                     autohidesScrollers = False,
-		                     backgroundColor = NSColor.whiteColor(),
+		                     backgroundColor = AppKit.NSColor.whiteColor(),
 		                     drawsBackground = True,
 		                     # acceptsMouseMoved = True
 		                     )
-		self.canvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+		self.canvas.scrollView.getNSScrollView().setBorderType_(AppKit.NSNoBorder)
 
 
 	def setupControl(self, leftTitle, rightTitle, kernTitle, noteTitle):
@@ -308,7 +305,7 @@ class TDKernListControl(VanillaBaseObject):
 		self.visibleWidth = visibleWidth
 		visibleHeight = self.canvas.scrollView.getNSScrollView().documentVisibleRect().size.height
 
-		self.canvas._view.setFrame_(NSMakeRect(0, 0, visibleWidth + 20, visibleHeight))
+		self.canvas._view.setFrame_(AppKit.NSMakeRect(0, 0, visibleWidth + 20, visibleHeight))
 		self.maxX = visibleWidth + 20
 
 
@@ -537,7 +534,7 @@ idFilterBoth = 'both'
 idFilterSide2 = 'side2'
 
 class TDKernListView(VanillaBaseObject):
-	nsViewClass = NSView
+	nsViewClass = AppKit.NSView
 	def __init__ (self, posSize, selectionCallback=None, window=None, commandCallback = None, previewGlyph = False):
 		xw, yw, tx, ty = posSize
 		self._window = window
@@ -600,7 +597,7 @@ class TDKernListView(VanillaBaseObject):
 		                     drawsBackground = False,
 		                     # acceptsMouseMoved = True
 		                     )
-		self.canvas.scrollView.getNSScrollView().setBorderType_(NSNoBorder)
+		self.canvas.scrollView.getNSScrollView().setBorderType_(AppKit.NSNoBorder)
 
 	def updatePanel(self):
 		self.canvas.update()
@@ -693,7 +690,7 @@ class TDKernListView(VanillaBaseObject):
 		else:
 			return firstItemInLine
 
-		point = NSPoint(xpos, ypos)
+		point = AppKit.NSPoint(xpos, ypos)
 		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.canvas.scrollView.getNSScrollView().contentView())
@@ -991,7 +988,7 @@ class TDKernListView(VanillaBaseObject):
 
 		if yoff < visibleHeight:
 			yoff = visibleHeight
-		self.canvas._view.setFrame_(NSMakeRect(0, 0, visibleWidth, yoff))
+		self.canvas._view.setFrame_(AppKit.NSMakeRect(0, 0, visibleWidth, yoff))
 		self.maxX = visibleWidth + 60
 
 	def scrollwheel (self, event):
@@ -1036,7 +1033,7 @@ class TDKernListView(VanillaBaseObject):
 		elif posYscroller + visibleHeight - self._lineSize * scaleUI == maxY * scaleUI and deltaY > 0:
 			ypoint = maxY * scaleUI - visibleHeight + self._lineSize * scaleUI
 
-		point = NSPoint(0, ypoint)
+		point = AppKit.NSPoint(0, ypoint)
 		self.canvas.scrollView.getNSScrollView().contentView().scrollToPoint_(point)
 		self.canvas.scrollView.getNSScrollView().reflectScrolledClipView_(
 			self.canvas.scrollView.getNSScrollView().contentView())
